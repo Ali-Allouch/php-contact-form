@@ -21,7 +21,7 @@ function sendMail(name, email, subject, message) {
         $(".sent-message").addClass("d-block");
         $("#name, #email, #subject, #message").val("");
       } else {
-        $(".error-message").html(
+        $(".error-message").append(
           "We apologize for the inconvenience, but it seems that your message was not received. Please contact us directly via email or phone number, or try again later. We are committed to ensuring that your communication is received and addressed in a timely manner. Thank you for your patience and understanding."
         );
         $(".error-message").addClass("d-block");
@@ -29,7 +29,7 @@ function sendMail(name, email, subject, message) {
     },
     error: function (jqXHR, textStatus, errorThrown) {
       $(".loading").removeClass("d-block");
-      $(".error-message").html(
+      $(".error-message").append(
         "We apologize for the inconvenience, but it seems that your message was not received. Please contact us directly via email or phone number, or try again later. We are committed to ensuring that your communication is received and addressed in a timely manner. Thank you for your patience and understanding."
       );
       $(".error-message").addClass("d-block");
@@ -37,8 +37,29 @@ function sendMail(name, email, subject, message) {
   });
 }
 
+async function insertData(name, email, subject, message) {
+  const data = {
+    name,
+    email,
+    subject,
+    message,
+  };
+
+  const response = await fetch("./assets/apis/insertData.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to insert contact data.");
+  }
+  return response.json();
+}
+
 $(() => {
-  $("#mailForm").submit(function (e) {
+  $("#mailForm").submit(async function (e) {
     e.preventDefault();
 
     $(".loading").addClass("d-block");
@@ -50,6 +71,15 @@ $(() => {
     var email = $("#email").val().trim();
     var subject = $("#subject").val().trim();
     var message = $("#message").val().trim();
+
+    try {
+      await insertData(name, email, subject, message);
+    } catch (error) {
+      console.error(error);
+      $(".error-message").append(
+        "Something went wrong, please try again later."
+      );
+    }
 
     sendMail(name, email, subject, message);
   });
