@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Contact Form</title>
+
+    <link href="./assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="container py-5">
+        <form id="mailForm" role="form" class="contact-form">
+          <h1 class="mb-4">Contact Us</h1>
+          <div class="row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="name" class="fw-bold mb-1">Your Name</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="name"
+                required
+              />
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="email" class="fw-bold mb-1">Your Email</label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                id="email"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="subject" class="fw-bold mb-1">Subject</label>
+            <input
+              type="text"
+              class="form-control"
+              name="subject"
+              id="subject"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="message" class="fw-bold mb-1">Message</label>
+            <textarea
+              class="form-control"
+              name="message"
+              rows="10"
+              id="message"
+              required
+            ></textarea>
+          </div>
+          <div class="my-3">
+            <div class="loading">Loading...</div>
+            <div class="error-message"></div>
+            <div class="sent-message text-start">
+              Thank you for your message. It has been successfully received and
+              will be reviewed and responded to in a timely manner. I appreciate
+              your interest and look forward to assisting you with your inquiry.
+              Please do not hesitate to contact me if you have any further
+              questions or concerns.
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="./assets/vendor/jquery/jquery.min.js"></script>
+    <script src="./assets/js/sendMail.js"></script>
+  </body>
+</html>
